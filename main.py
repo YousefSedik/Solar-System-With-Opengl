@@ -1,9 +1,10 @@
-from objects import draw_stars, init_coordinates
+from objects import draw_stars, init_coordinates, draw_ring, init_ring_coordinates
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
 
-stars_coordinates = init_coordinates(100)
+stars_coordinates = init_coordinates(200)
+ring_coordinates = init_ring_coordinates()
 
 
 def display():
@@ -11,6 +12,9 @@ def display():
     glLoadIdentity()
     iterate()
     draw_stars(stars_coordinates)
+    for ring in ring_coordinates:
+        draw_ring(*ring)
+
     glutSwapBuffers()
 
 
