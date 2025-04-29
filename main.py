@@ -1,9 +1,11 @@
+from objects import draw_stars, init_coordinates
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
-from objects import draw_stars, init_coordinates
 
-stars_coordinates = init_coordinates(100) 
+stars_coordinates = init_coordinates(100)
+
+
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
@@ -21,7 +23,7 @@ def iterate():
 if __name__ == "__main__":
     glutInit()
     glutInitDisplayMode(GLUT_RGBA)
-    wind = glutCreateWindow(b"Solar System With OpenGL")  # Give your window a title
+    wind = glutCreateWindow(b"Solar System With OpenGL")
     glutFullScreen()
     glutDisplayFunc(display)
     glutIdleFunc(display)
