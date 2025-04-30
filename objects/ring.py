@@ -1,31 +1,54 @@
-from OpenGL.GLUT import *
-from OpenGL.GLU import *
-from OpenGL.GL import *
+from OpenGL.GL import glColor3f, glBegin, glEnd, glVertex3f, glNormal3f, GL_QUADS
 import math
 
 
 def draw_ring(cx, cy, inner_radius, outer_radius, num_segments=100):
-    glColor3f(1.0, 1.0, 1.0)
-    glPointSize(1.0)
+    glColor3f(0.5, 0.5, 0.5)
 
-    glBegin(GL_TRIANGLE_STRIP)
-    for i in range(num_segments + 1):
-        theta = 2.0 * math.pi * i / num_segments
-        cos_theta = math.cos(theta)
-        sin_theta = math.sin(theta)
+    for i in range(num_segments):
+        theta1 = 2.0 * math.pi * i / num_segments
+        theta2 = 2.0 * math.pi * (i + 1) / num_segments
 
-        # Outer edge vertex
-        glVertex2f(cx + outer_radius * cos_theta, cy + outer_radius * sin_theta)
-        # Inner edge vertex
-        glVertex2f(cx + inner_radius * cos_theta, cy + inner_radius * sin_theta)
-    glEnd()
+        cos_theta1 = math.cos(theta1)
+        sin_theta1 = math.sin(theta1)
+        cos_theta2 = math.cos(theta2)
+        sin_theta2 = math.sin(theta2)
+
+        glBegin(GL_QUADS)
+
+        glNormal3f(cos_theta1, sin_theta1, 0)
+        glVertex3f(outer_radius * cos_theta1, outer_radius * sin_theta1, 2)
+        glVertex3f(outer_radius * cos_theta1, outer_radius * sin_theta1, -2)
+        glVertex3f(outer_radius * cos_theta2, outer_radius * sin_theta2, -2)
+        glVertex3f(outer_radius * cos_theta2, outer_radius * sin_theta2, 2)
+
+        glNormal3f(-cos_theta1, -sin_theta1, 0)
+        glVertex3f(inner_radius * cos_theta1, inner_radius * sin_theta1, 2)
+        glVertex3f(inner_radius * cos_theta1, inner_radius * sin_theta1, -2)
+        glVertex3f(inner_radius * cos_theta2, inner_radius * sin_theta2, -2)
+        glVertex3f(inner_radius * cos_theta2, inner_radius * sin_theta2, 2)
+
+        glNormal3f(0, 0, 1)
+        glVertex3f(outer_radius * cos_theta1, outer_radius * sin_theta1, 2)
+        glVertex3f(outer_radius * cos_theta2, outer_radius * sin_theta2, 2)
+        glVertex3f(inner_radius * cos_theta2, inner_radius * sin_theta2, 2)
+        glVertex3f(inner_radius * cos_theta1, inner_radius * sin_theta1, 2)
+
+        glNormal3f(0, 0, -1)
+        glVertex3f(outer_radius * cos_theta1, outer_radius * sin_theta1, -2)
+        glVertex3f(outer_radius * cos_theta2, outer_radius * sin_theta2, -2)
+        glVertex3f(inner_radius * cos_theta2, inner_radius * sin_theta2, -2)
+        glVertex3f(inner_radius * cos_theta1, inner_radius * sin_theta1, -2)
+
+        glEnd()
 
 
 def init_ring_coordinates():
     coordinates = []
-    cx, cy, inner_radius, outer_radius = 960, 540, 100, 102
+    inner_radius, outer_radius = 50, 52
+
     for i in range(7):
-        coordinates.append([cx, cy, inner_radius, outer_radius])
-        inner_radius += 50 + i * 3.5
-        outer_radius += 50 + i * 3.5
+        coordinates.append([0, 0, inner_radius, outer_radius])
+        inner_radius += 30 + i * 2
+        outer_radius += 30 + i * 2
     return coordinates
