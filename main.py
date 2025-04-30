@@ -1,4 +1,9 @@
-from objects import draw_stars, init_coordinates, draw_ring, init_ring_coordinates
+from objects import (
+    draw_stars,
+    init_coordinates,
+    draw_ring,
+    init_ring_coordinates,
+)
 from OpenGL.GLUT import (
     glutInit,
     glutInitDisplayMode,
@@ -25,7 +30,7 @@ from OpenGL.GL import (
     glRotatef,
 )
 
-stars_coordinates = init_coordinates(100)
+stars_coordinates = init_coordinates(400)
 ring_coordinates = init_ring_coordinates()
 angle = 0
 

@@ -15,12 +15,12 @@ import math
 
 def draw_stars(coordinates: list[list[float]]):
     glColor3f(1.0, 1.0, 1.0)
-    glPointSize(2.0)
     glDisable(GL_LIGHTING)
-    glBegin(GL_POINTS)
-    for x, y, z in coordinates:
+    for x, y, z, size in coordinates:
+        glPointSize(size)
+        glBegin(GL_POINTS)
         glVertex3f(x, y, z)
-    glEnd()
+        glEnd()
     glEnable(GL_LIGHTING)
 
 
@@ -34,6 +34,6 @@ def init_coordinates(number_of_coordinates: int = 10):
         x = radius * math.sin(phi) * math.cos(theta)
         y = radius * math.sin(phi) * math.sin(theta)
         z = radius * math.cos(phi)
-
-        data.append([x, y, z])
+        size = random.uniform(2, 3)
+        data.append([x, y, z, size])
     return data
